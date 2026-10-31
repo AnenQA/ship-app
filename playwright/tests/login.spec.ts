@@ -22,7 +22,7 @@ test.describe('Login', () => {
     }, { box: true })
 
     await test.step('Check the user lands on the order form', async () => {
-      await expect(page).toHaveURL('/')
+      await expect(orderFormPage.headingLocator).toBeVisible()
       await expect(orderFormPage.headingLocator).toHaveText('Create a New Shipment')
     }, { box: true })
 

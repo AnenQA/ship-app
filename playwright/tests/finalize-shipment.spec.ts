@@ -43,6 +43,7 @@ test.describe('Finalize shipment', () => {
     }, { box: true })
 
     await test.step('Open the draft details page from the row menu', async () => {
+      await shipmentsPage.dismissPromoWhenItAppears()
       await shipmentsPage.openRowMenu(receiver.name)
       await shipmentsPage.clickView(receiver.name)
       await expect(shipmentDetailsPage.headingLocator).toHaveText(/^Draft Shipment #\d+$/)
