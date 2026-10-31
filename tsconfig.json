@@ -19,7 +19,6 @@
     "vite.config.ts",
     "src/**/*.ts",
     "src/**/*.svelte",
-    "playwright.config.ts",
-    "playwright/**/*.ts"
+    "playwright.config.ts"
   ]
 }
