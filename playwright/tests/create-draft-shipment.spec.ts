@@ -28,7 +28,7 @@ test.describe('Create draft shipment', () => {
       await expect(await AuthClient.login(page.request, credentials)).toBeOK()
     }, { box: true })
 
-    await test.step('Open the order form', async () => {
+    await test.step('Open the shipment form page', async () => {
       await orderFormPage.goto()
       await expect(orderFormPage.headingLocator).toBeVisible()
     }, { box: true })
@@ -48,7 +48,7 @@ test.describe('Create draft shipment', () => {
       await orderFormPage.saveDraft()
     }, { box: true })
 
-    await test.step('Check the draft appears in My Shipments', async () => {
+    await test.step('Check the draft shipment appears in My Shipments', async () => {
       await expect(page).toHaveURL('/shipments?success=true')
       await expect(shipmentsPage.successMessageLocator).toHaveText('Shipment saved successfully!')
       await expect(shipmentsPage.receiverNameLocator.filter({ hasText: receiver.name }).first()).toBeVisible()
