@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 import { RegisterPage, type RegisterFormData } from '../pages/register.page'
-import { OrderFormPage } from '../pages/order-form.page'
+import { OrderFormPage } from '../pages/shipment-form.page'
 import { SidebarComponent } from '../components/sidebar.component'
 
 test.describe('Register', () => {
@@ -22,13 +22,20 @@ test.describe('Register', () => {
       street: '12 Rainbow Street',
     }
 
-    await registerPage.goto()
-    await registerPage.fillForm(user)
-    await registerPage.submit()
+    await test.step('Fill the registration form and submit', async () => {
+      await registerPage.goto()
+      await registerPage.fillForm(user)
+      await registerPage.submit()
+    }, { box: true })
 
-    await expect(orderFormPage.headingLocator).toBeVisible()
-    await expect(orderFormPage.headingLocator).toHaveText('Create a New Shipment')
-    await expect(sidebar.userNameLocator).toHaveText(user.fullName)
-    await expect(sidebar.userEmailLocator).toHaveText(user.email)
+    await test.step('Check the new user lands on the order form', async () => {
+      await expect(orderFormPage.headingLocator).toBeVisible()
+      await expect(orderFormPage.headingLocator).toHaveText('Create a New Shipment')
+    }, { box: true })
+
+    await test.step('Check the sidebar shows the new account', async () => {
+      await expect(sidebar.userNameLocator).toHaveText(user.fullName)
+      await expect(sidebar.userEmailLocator).toHaveText(user.email)
+    }, { box: true })
   })
 })

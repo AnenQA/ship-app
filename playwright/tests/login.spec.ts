@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 import { LoginPage, type LoginFormData } from '../pages/login.page'
-import { OrderFormPage } from '../pages/order-form.page'
+import { OrderFormPage } from '../pages/shipment-form.page'
 import { SidebarComponent } from '../components/sidebar.component'
 
 test.describe('Login', () => {
@@ -15,13 +15,20 @@ test.describe('Login', () => {
     }
     const fullName: string = 'Khalid Al-Otaibi'
 
-    await loginPage.goto()
-    await loginPage.fillForm(credentials)
-    await loginPage.submit()
+    await test.step('Log in with a valid account', async () => {
+      await loginPage.goto()
+      await loginPage.fillForm(credentials)
+      await loginPage.submit()
+    }, { box: true })
 
-    await expect(page).toHaveURL('/')
-    await expect(orderFormPage.headingLocator).toHaveText('Create a New Shipment')
-    await expect(sidebar.userNameLocator).toHaveText(fullName)
-    await expect(sidebar.userEmailLocator).toHaveText(credentials.email)
+    await test.step('Check the user lands on the order form', async () => {
+      await expect(page).toHaveURL('/')
+      await expect(orderFormPage.headingLocator).toHaveText('Create a New Shipment')
+    }, { box: true })
+
+    await test.step('Check the sidebar shows the logged-in user', async () => {
+      await expect(sidebar.userNameLocator).toHaveText(fullName)
+      await expect(sidebar.userEmailLocator).toHaveText(credentials.email)
+    }, { box: true })
   })
 })

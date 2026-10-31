@@ -212,7 +212,7 @@
               {shipment.status === 'draft' ? '-' : shipment.trackingNumber}
             </th>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-foreground">{shipment.from.name}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-foreground">{shipment.to.name}</td>
+            <td data-testid="shipments-receiver-name" class="px-6 py-4 whitespace-nowrap text-sm text-foreground">{shipment.to.name}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
               {shipment.to.city}, {shipment.to.country}
             </td>
